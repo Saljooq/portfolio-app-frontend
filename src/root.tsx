@@ -41,8 +41,6 @@ export default function Root() {
             <nav class="bg-sky-800">
               <ul class="container flex items-center p-3 text-gray-200">
                 <li class={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
-                  {/* <A href="/">Index</A> */}
-                    {/* <Route path="/" component={Home({count:count, setCount:setCount})}></Route> */}
                     <A href="/">Index - {count()}</A>
                 </li>
                 <li class={`border-b-2 ${active("/index2")} mx-1.5 sm:mx-6`}>
@@ -50,6 +48,12 @@ export default function Root() {
                 </li>
                 <li class={`border-b-2 ${active("/about")} mx-1.5 sm:mx-6`}>
                   <A href="/about">About</A>
+                </li>
+                <li class={`border-b-2 ${active("/markdown")} mx-1.5 sm:mx-6`}>
+                  <A href="/markdown">Markdown</A>
+                </li>
+                <li class={`border-b-2 ${active("/mdmodalpage")} mx-1.5 sm:mx-6`}>
+                  <A href="/mdmodalpage">MD Modal</A>
                 </li>
               </ul>
             </nav>
