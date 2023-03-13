@@ -16,7 +16,7 @@ import {
 } from "solid-start";
 import "./root.css";
 import Home from "./routes/index";
-import index2 from "./components/index2"
+import index2 from "./routes/index2"
 
 export default function Root() {
   const location = useLocation();
