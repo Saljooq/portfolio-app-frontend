@@ -1,50 +1,51 @@
-import type { Component } from 'solid-js';
+import { Component, createResource, createSignal, For } from 'solid-js';
 
 import {marked} from 'marked';
+import {mdpage} from '../interface/mdpage'
+import MdPageComponent from '~/components/MdPage/MdPage';
+
+const fetchPage = () => fetch(`http://localhost:8080/pages`);
+
+const  default_arr: mdpage[] = [];
+const default_page: mdpage = {
+  mdpage_id : 0,
+  title: "",
+  body: "",
+  blurb: ""
+};
+
+
 
 const MarkdownPage: Component = () => {
-  const parsed: string = marked.parse(str)
-//   console.log(parsed)
+  
+  const [page, setPage] = createSignal(default_page)
+
+  const [pages, setPages] = createSignal(default_arr)
+
+  fetchPage()
+  .then(x => x.json())
+  .then( x => {
+    setPages(x)
+    setPage(x[0])
+  })
+
   return ( 
     <div class="grid place-items-center">
-        <div class="pt-16" innerHTML={parsed}/>
+        <div class="p-5"></div>
+
+          <label >Choose a markdown page:   
+          <select>
+            <For each={pages()}>{page => <option
+              onClick={()=> setPage(page)}
+              >{page.title}</option>}
+            </For>
+          </select>
+          </label>
+
+        <MdPageComponent page_signal={page}/>
     </div>
   );
 };
-
-const str = `
-
-# This page is a test for the rendering of md - and its affect on page size
-
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
-
-### Solar System Exploration, 1950s – 1960s
-
-- [ ] Mercury
-- [x] Venus
-- [x] Earth (Orbit/Moon)
-- [x] Mars
-- [ ] Jupiter
-- [ ] Saturn
-- [ ] Uranus
-- [ ] Neptune
-- [ ] Comet Haley
-
-
-## This is another list that I'm working on
-- hello
-- to 
-- you
-
-### check-list again
-
-- [ ] Mercury
-- [x] Venus
-- [x] Earth (Orbit/Moon)
-`
 
 
 export default MarkdownPage;
