@@ -9,64 +9,53 @@ export interface IMdPage {
 
 function processMd(input: string){
 
-    input = input.replaceAll("\n\n", "\n\n<br />\n\n")
-
+    input = input.replaceAll("\n\n\n", "\n\n<br />\n\n")
+    const md_styling = "" +
+    // Adding padding to all sides
+    " p-6 " + 
+    // Adding left margin for unordered list
+    " [&>ul]:ml-5 " + 
+    // Red text to elements in the list
+    " [&>ul>li]:text-red-800 " + 
+    // Adding h1, h2, h3, and h4 text sizing
+    " [&>h1]:text-4xl [&>h2]:text-3xl [&>h3]:text-2xl " + 
+    // Adding bottom margins for headings
+    " [&>h1]:mb-2.5 [&>h2]:mb-2.5  [&>h3]:mb-2.5" +
+    // Adding top margins for headings
+    " [&>h2]:mt-5  [&>h3]:mt-3.5"
 
     const el: JSX.Element = <div 
-        class="pt-16 [&>ul]:ml-5 [&>ul>li]:text-red-800 [&>h1]:text-4xl [&>h2]:text-3xl [&>h3]:text-2xl [&>h1]:mb-2.5 [&>h2]:mb-2.5  [&>h3]:mb-2.5" 
+        class={md_styling}
         innerHTML={ marked.parse(input)} 
     />
 
-    const n = el as Node 
-    var i = 1
-    n.childNodes.forEach(
+    const node = el as Node
+   
+    node.childNodes.forEach(
         x => {
-            console.log(x)
-            if (x.localName === "ul"){
-                console.log("we have a list")
-                var targetThis = false
-
+            if (x.nodeName === "UL"){
                 // this should have children
-                x.childNodes.forEach(
-                    ch => {
-
-                        if (ch.localName === "li"){
-
-                            if (ch.firstChild.localName == "input"){
-                                console.log("We have a child node")
-
-                            } else {
-                                targetThis = true
-                            }
+                for (let ch of x.childNodes){
+                    if (ch.nodeName === "LI"){
+                        if (ch.hasChildNodes() && !(ch.firstChild!.nodeName == "INPUT")){
+                            ch.parentElement?.classList.add(
+                                "list-disc",
+                                "pl-5",
+                            )
+                            break
                         }
                     }
-                )
-
-                if (targetThis) {
-                    x.className = "pl-5  list-disc"
                 }
-
             }
         }
     )
     
-
     return el
-
-
 }
 
 export default function MdPageComponent(prop: IMdPage){
-
-
     return(
         <div>
-            {/* <div 
-                class="pt-16 [&>ul]:ml-5 [&>ul>li]:text-red-800 [&>h1]:text-4xl [&>h2]:text-3xl [&>h3]:text-2xl" 
-                // innerHTML={ marked.parse(prop.page_signal().body)}
-                innerHTML={processMd(prop.page_signal().body)} 
-
-            /> */}
             {processMd(prop.page_signal().body)}
         </div>
     )

@@ -1,15 +1,26 @@
 import { Component, createSignal } from 'solid-js';
 
 import {marked} from 'marked';
+import MdPageComponent from '~/components/MdPage/MdPage';
+import { mdpage } from '~/interface/mdpage';
+
+const default_page: mdpage = {
+  mdpage_id : 0,
+  title: "",
+  body: "",
+  blurb: ""
+};
+
 
 const MarkdownModalPage: Component = () => {
-  const parsed: string = marked.parse(str)
+  const mdpage: mdpage = default_page
+  const [page, setPage] = createSignal(mdpage)
+
+  setPage({...page(), body:str})
+
   const [showModal, setShowModal] = createSignal(false);
-//   console.log(parsed)
   return ( 
     <div class="grid place-items-center">
-        {/* <div class="pt-16" innerHTML={parsed}/> */}
-
       <button
         class="bg-sky-800 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-16"
         onClick={() => setShowModal(true)}
@@ -40,7 +51,7 @@ const MarkdownModalPage: Component = () => {
                     </div>
 
                     <div class="relative p-6 flex-auto">
-                        <div innerHTML={parsed}/>
+                        <MdPageComponent page_signal={page}/>
                     </div>
 
                     <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -75,16 +86,16 @@ const MarkdownModalPage: Component = () => {
 
 
 const str = `
-
 # This page is a test for the rendering of md - and its affect on page size
+
 
 | Syntax      | Description |
 | ----------- | ----------- |
 | Header      | Title       |
 | Paragraph   | Text        |
 
-### Solar System Exploration, 1950s – 1960s
 
+### Solar System Exploration, 1950s – 1960s
 - [ ] Mercury
 - [x] Venus
 - [x] Earth (Orbit/Moon)
@@ -94,15 +105,11 @@ const str = `
 - [ ] Uranus
 - [ ] Neptune
 - [ ] Comet Haley
-
-
 ## This is another list that I'm working on
 - hello
 - to 
 - you
-
 ### check-list again
-
 - [ ] Mercury
 - [x] Venus
 - [x] Earth (Orbit/Moon)
