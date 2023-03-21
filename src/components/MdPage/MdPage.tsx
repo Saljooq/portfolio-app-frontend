@@ -30,16 +30,21 @@ function processMd(input: string){
     />
 
     const node = el as Node
+
+    const list_dict = {
+        'UL': 'list-disc',
+        'OL': 'list-decimal'
+    }
    
     node.childNodes.forEach(
         x => {
-            if (x.nodeName === "UL"){
+            if (x.nodeName === "UL" || x.nodeName === "OL"){
                 // this should have children
                 for (let ch of x.childNodes){
                     if (ch.nodeName === "LI"){
                         if (ch.hasChildNodes() && !(ch.firstChild!.nodeName == "INPUT")){
                             ch.parentElement?.classList.add(
-                                "list-disc",
+                                list_dict[x.nodeName],
                                 "pl-5",
                             )
                             break
