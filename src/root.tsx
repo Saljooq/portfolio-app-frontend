@@ -36,6 +36,7 @@ export default function Root() {
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Body>
+        <div class="h-screen overflow-y-auto">
         <Suspense>
           <ErrorBoundary>
             <nav class="bg-sky-800">
@@ -55,6 +56,9 @@ export default function Root() {
                 <li class={`border-b-2 ${active("/mdmodalpage")} mx-1.5 sm:mx-6`}>
                   <A href="/mdmodalpage">MD Modal</A>
                 </li>
+                <li class={`border-b-2 ${active("/editor")} mx-1.5 sm:mx-6`}>
+                  <A href="/editor">Editor</A>
+                </li>
               </ul>
             </nav>
             <Routes>
@@ -64,6 +68,7 @@ export default function Root() {
             </Routes>
           </ErrorBoundary>
         </Suspense>
+        </div>
         <Scripts />
       </Body>
     </Html>
