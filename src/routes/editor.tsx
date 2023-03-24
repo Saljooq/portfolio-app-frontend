@@ -23,18 +23,58 @@ const EditorPage: Component = () => {
 
     setPage({ ...page(), body: data() })
 
+
+    const save_page = () => {
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const request_options = {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify(page()),
+        }
+
+        fetch("http://localhost:8080/mdpageinsert", request_options)
+        .then(response => response.text())
+        .then(result => console.log(result))
+
+    }
+    
+
     return (
-        <div class="mt-6 flex flex-row h-5/6 items-center">
-            {/* <div class="basis-1/2  h-full max-h-screen overflow-y-auto"> */}
-            <div class="ml-3 w-1/2 h-full overflow-y-auto bg-purple-50">
-                <MdPageComponent page_signal={page} />
+        <div class="h-full">
+            <div class="mt-6 flex flex-row h-5/6 items-center">
+                {/* <div class="basis-1/2  h-full max-h-screen overflow-y-auto"> */}
+                <div class="ml-3 w-1/2 h-full overflow-y-auto bg-purple-50">
+                    <MdPageComponent page_signal={page} />
+                </div>
+                <textarea onInput={e => setPage({...page(), body:e.target.value})} 
+                    // class="basis-1/2 outline-dashed" 
+                    class="ml-3 pl-2 mr-3 w-1/2 h-full flex overflow-y-auto  flex-grow bg-blue-50"
+                >
+                    {str}
+                </textarea>
             </div>
-            <textarea onInput={e => setPage({...page(), body:e.target.value})} 
-                // class="basis-1/2 outline-dashed" 
-                class="ml-3 pl-2 mr-3 w-1/2 h-full flex overflow-y-auto  flex-grow bg-blue-50"
+
+            <button class="bg-sky-800 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-3 mt-3 ml-6 mb-1 ease-linear transition-all duration-150"
+            onClick={save_page}
+
             >
-                {str}
-            </textarea>
+                Save
+            </button>
+            <input 
+                type="text" 
+                class="bg-blue-100 mr-3 ml-8"  
+                placeholder="Enter title.."
+                onChange={e => setPage({...page(), title:e.target.value})}
+            ></input>
+            <input 
+                type="text" 
+                class="bg-blue-100"  
+                placeholder="Enter blurb.."
+                onChange={e => setPage({...page(), blurb:e.target.value})}
+            ></input>
         </div>
     );
 };
