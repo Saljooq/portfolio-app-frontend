@@ -53,8 +53,6 @@ const MarkdownPage: Component = () => {
 					<option value={page.title}>{page.title}</option>
 					}
 				</For>
-				<option>test 1</option>
-				<option>test 2</option>
 			</select>
 			</label>
 
