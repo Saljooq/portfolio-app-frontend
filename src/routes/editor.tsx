@@ -3,6 +3,7 @@ import { Component, createResource, createSignal, For } from 'solid-js';
 import { marked } from 'marked';
 import { mdpage } from '../interface/mdpage'
 import MdPageComponent from '~/components/MdPage/MdPage';
+import URI from '~/components/GetURI'
 
 const fetchPage = () => fetch(`http://localhost:8080/pages`);
 
@@ -35,7 +36,7 @@ const EditorPage: Component = () => {
             body: JSON.stringify(page()),
         }
 
-        fetch("http://localhost:8080/mdpageinsert", request_options)
+        fetch(`${URI()}/mdpageinsert`, request_options)
         .then(response => response.text())
         .then(result => console.log(result))
 
@@ -134,10 +135,5 @@ def main():
 - this is something
 3. Or not
 
-\`\`\`python
-def main():
-  print("hello world!");
-\`\`\`
 
-## hello there
 `

@@ -3,8 +3,9 @@ import { Component, createResource, createSignal, For } from 'solid-js';
 import {marked} from 'marked';
 import {mdpage} from '../interface/mdpage'
 import MdPageComponent from '~/components/MdPage/MdPage';
+import URI from '~/components/GetURI'
 
-const fetchPage = () => fetch(`http://localhost:8080/pages`);
+const fetchPage = () => fetch(`${URI()}/pages`);
 
 const  default_arr: mdpage[] = [];
 const default_page: mdpage = {
@@ -28,6 +29,8 @@ const MarkdownPage: Component = () => {
     setPages(x)
     setPage(x[0])
   })
+
+  console.log(`the backend uri is : ${URI()}`)
 
   return ( 
     <div class="grid place-items-center">
