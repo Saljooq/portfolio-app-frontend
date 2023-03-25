@@ -48,7 +48,7 @@ const MarkdownPage: Component = () => {
             onChange={(e)=> setPage(getSelectedPage(e.target.value))}
           >
             <option selected disabled>Choose a markdown page</option>
-            <For each={pages()}>{page => <option
+            <For each={pages()}>{page => <option selected
               >{page.title}</option>}
             </For>
           </select>
