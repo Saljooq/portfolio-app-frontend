@@ -9,6 +9,8 @@ export interface IMdPage {
 
 function processMd(input: string){
 
+
+    console.log("processing the md string again")
     input = input.replaceAll("\n\n\n", "\n\n<br />\n\n")
     const md_styling = "" +
     // Adding padding to all sides
