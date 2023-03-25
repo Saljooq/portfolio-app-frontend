@@ -36,14 +36,20 @@ const MarkdownPage: Component = () => {
   
   console.log(`the backend uri is : ${URI()}`)
 
+  const getSelectedPage = (title: string) => {
+      return pages().filter(x => x.title==title)[0]
+  }
+
   return ( 
     <div class="grid place-items-center">
         <div class="p-5"></div>
    
-          <select class="block py-2.5 px-0 w-25 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+          <select 
+            class="block py-2.5 px-0 w-25 text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+            onChange={(e)=> setPage(getSelectedPage(e.target.value))}
+          >
             <option selected>Choose a markdown page</option>
             <For each={pages()}>{page => <option
-              onClick={()=> setPageWrapper(page)}
               >{page.title}</option>}
             </For>
           </select>
