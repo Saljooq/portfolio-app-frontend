@@ -33,3 +33,7 @@ By default, `npm run build` will generate a Node app that you can run with `npm 
 
 ## Idea for simpler table
 Make a pop-up modal to make a table and add it to md text
+
+## Idea for better highlighting
+
+make an express server do the calculations and sanitization - and rendering and save the rendered version alongside md

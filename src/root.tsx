@@ -23,7 +23,7 @@ export default function Root() {
   const active = (path: string) =>
     path == location.pathname
       ? "border-sky-600"
-      : "border-transparent hover:border-sky-600";
+      : "border-transparent hover:border-stone-400";
 
   const [count, setCount] = createSignal(0);
 
