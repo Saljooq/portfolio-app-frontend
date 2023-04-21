@@ -29,7 +29,7 @@ export default function Root() {
       ? "border-b-4 border-sky-500"
       : "border-b-4 border-transparent";
 
-  const aClass = "inline-flex p-3 border-b-2 border-transparent rounded-t-lg hover:text-sky-500 hover:border-sky-300  group";
+  const aClass = "inline-flex p-3 border-b-2 border-transparent rounded-t-lg hover:text-sky-500 hover:border-sky-500  group";
 
   console.log("created a count: "+ count())
   return (
