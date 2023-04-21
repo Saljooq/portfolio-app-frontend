@@ -25,7 +25,7 @@ export default function Root() {
   const [count, setCount] = createSignal(0);
 
   const active = (path: string) =>
-    path == location.pathname
+    (path == location.pathname) || (path + '/' == location.pathname)
       ? "border-b-4 border-sky-500"
       : "border-b-4 border-transparent";
 
