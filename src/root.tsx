@@ -17,6 +17,7 @@ import {
 import "./root.css";
 import Home from "./routes/index";
 import index2 from "./routes/index2"
+import login from "./components/Login/Login"
 
 export default function Root() {
   const location = useLocation();
@@ -60,11 +61,15 @@ export default function Root() {
                 <li class={`mr-2 ${active('/editor')} mx-1.5 sm:mx-6`}>
                   <A href="/editor" class={aClass}>Editor</A>
                 </li>
+                <li class={`mr-2 ${active('/login')} mx-1.5 sm:mx-6`}>
+                  <A href="/login" class={aClass}>Login</A>
+                </li>
               </ul>
             </nav>
             <Routes>
               <Route path="/" component={Home({count:count, setCount:setCount})}></Route>
               <Route path="/index2" component={index2({count:count, setCount:setCount})}></Route>
+              <Route path="/login" component={login}></Route>
               <FileRoutes />
             </Routes>
           </ErrorBoundary>
