@@ -8,7 +8,7 @@ import URI from '~/components/GetURI'
 const fetchPage = () => fetch(`${URI()}/pages`, {
     credentials: 'include',
     headers: {
-      Accept: 'application.json',
+      Accept: 'application/json',
       'Content-Type': 'application/json'
       
     },
