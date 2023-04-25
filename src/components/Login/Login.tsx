@@ -2,17 +2,29 @@ import { createSignal } from "solid-js"
 import { person } from "~/interface/person"
 import URI from '~/components/GetURI'
 
-const login = () => fetch(`${URI()}/login`);
+const login = async (p: person) => await fetch(`${URI()}/login`, {
+    credentials: 'include',
+    headers: {
+      Accept: 'application.json',
+      'Content-Type': 'application/json'
+      
+    },
+    method: 'POST',
+    body: JSON.stringify(p)
+  } as RequestInit)
 
 const default_person: person = {
     name: "",
     email: "",
-    password: ""
+    password: "",
+    nickname: "",
+    person_id: 0
 };
 
-const setAuthCookie = () => {
+const setAuthCookie = async (e: MouseEvent, p: person) => {
+    e.preventDefault()
 
-    login()
+    await login(p)
 
     console.log(document.cookie)
 
@@ -59,7 +71,7 @@ export default function(){
                         <button 
                         type="submit" 
                         class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                        onClick={setAuthCookie}
+                        onClick={e => setAuthCookie(e, person())}
                         >Sign in</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Don’t have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>

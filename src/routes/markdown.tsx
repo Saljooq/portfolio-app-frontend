@@ -5,7 +5,15 @@ import {mdpage} from '../interface/mdpage'
 import MdPageComponent from '~/components/MdPage/MdPage';
 import URI from '~/components/GetURI'
 
-const fetchPage = () => fetch(`${URI()}/pages`);
+const fetchPage = () => fetch(`${URI()}/pages`, {
+    credentials: 'include',
+    headers: {
+      Accept: 'application.json',
+      'Content-Type': 'application/json'
+      
+    },
+    method: 'GET',
+  } as RequestInit);
 
 const  default_arr: mdpage[] = [];
 const default_page: mdpage = {
