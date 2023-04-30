@@ -55,7 +55,7 @@ const MarkdownPage: Component = () => {
 			<span class="text-gray-700">Choose a markdown page</span>
 			<select 
 				class="block w-full mt-1"
-				onChange={(e)=> setPage(getSelectedPage(e.target.value))}
+				onChange={(e)=> setPage(getSelectedPage((e.target as HTMLInputElement).value))}
 			>
 				<For each={pages()}>{page => 
 					<option value={page.title}>{page.title}</option>
